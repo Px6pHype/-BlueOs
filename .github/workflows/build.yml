@@ -1,4 +1,4 @@
-name: Build LineageOS Duchamp
+name: Build BlueOS LineageOS 24.0 Duchamp
 
 on:
   workflow_dispatch:
@@ -23,7 +23,8 @@ jobs:
 
       - name: Install Build Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses-dev lib32z1-dev libelf-dev liblz4-tool libncurses-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc yasm zlib1g-dev
+          sudo apt-get update && sudo apt-get install -y bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses-dev lib32z1-dev libelf-dev liblz4-tool libncurses-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc yasm zlib1g-dev python3
+          sudo ln -sf /usr/bin/python3 /usr/bin/python
 
       - name: Setup Repo Tool
         run: |
@@ -37,13 +38,19 @@ jobs:
           git config --global user.name "Px6pHype"
           git config --global user.email "px6phype@gmail.com"
           mkdir -p ~/lineage && cd ~/lineage
-          repo init -u https://github.com/LineageOS/android.git -b lineage-21.0 --depth=1
+          repo init -u https://github.com/LineageOS/android.git -b lineage-24.0 --depth=1
           repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune -j8
 
-      - name: Inject Custom Device Tree
+      - name: Clone and Integrate BlueOS Overlays
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
+          # Клонируем твой репозиторий BlueOS через токен
+          git clone https://$GH_PAT@github.com/Px6pHype/-BlueOs.git ~/blueos_source
+          
+          # Раскладываем файлы надстройки в дерево устройства для duchamp
           mkdir -p ~/lineage/device/xiaomi/duchamp
-          cp -r $GITHUB_WORKSPACE/* ~/lineage/device/xiaomi/duchamp/
+          cp -r ~/blueos_source/* ~/lineage/device/xiaomi/duchamp/
 
       - name: Start Compilation
         run: |
