@@ -32,6 +32,8 @@ jobs:
 
       - name: Initialize and Sync LineageOS Source
         run: |
+          git config --global user.name "Px6pHype"
+          git config --global user.email "px6phype@gmail.com"
           mkdir -p ~/lineage && cd ~/lineage
           repo init -u https://github.com/LineageOS/android.git -b lineage-21.0 --depth=1
           repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune -j8
