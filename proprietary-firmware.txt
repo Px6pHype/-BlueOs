@@ -1,0 +1,24 @@
+# Unpinned firmware from duchamp_global-user 16 BP2A.250605.031.A3 OS3.0.9.0.WNLMIXM release-keys
+
+apusys.img;AB
+audio_dsp.img;AB
+ccu.img;AB
+connsys_bt.img;AB
+connsys_gnss.img;AB
+connsys_wifi.img;AB
+dpm.img;AB
+gpueb.img;AB
+gz.img;AB
+logo.img;AB
+lk.img;AB|690f3871a613545d40a78ce6f0e237252761bcde
+mcf_ota.img;AB
+mcupm.img;AB
+modem.img;AB
+mvpu_algo.img;AB
+pi_img.img;AB
+preloader_raw.img;AB
+scp.img;AB|b601a1d68e83f88c1ff324c3ef815fcfbc43ea66
+spmfw.img;AB
+sspm.img;AB
+tee.img;AB
+vcp.img;AB
